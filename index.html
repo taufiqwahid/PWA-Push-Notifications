@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="/manifest.json">
+    <title>Notfication API</title>
+</head>
+<body>
+
+    <h1>Notification API</h1>
+    <button onclick="showNotifikasiSederhana()">Notifikasi Sederhana dengan Title dan Body</button>
+
+    <script>
+        // aPeriksa service worker
+        if (!('serviceWorker' in navigator)) {
+            console.log("Service Worker tidak didukung browser in")
+        } else {
+            registerServiceWorker();
+        }
+
+        //Register service Worker
+        function registerServiceWorker(){
+            return navigator.serviceWorker.register('service-worker.js')
+            .then(function(registration){
+                console.log("Register service worker berhasil")
+                return registration;
+            })
+
+            .catch(function(error){
+                console.log("ERRORRRR : ",error)
+            })
+            
+        }
+
+        //periksa fitur Notification API
+        if ("Notification" in window) {
+            requestPermission();
+        } else {
+            console.log("Browser tidak mendukung notification");
+        }
+
+        // Meminta ijin menggunakan Notifiation API
+        function requestPermission(){
+            Notification.requestPermission().then(function(result){
+                if (result === "denied") {
+                    console.log("Fitur notificaton tidak diijinkan");
+                    return;
+                } else if(result === "default") {
+                    console.log("Pengguna menutup kotak dialog permintaan ijin")
+                    return;
+                }else{
+                    console.log("fitur notification diijinkan")
+                    return;
+                }
+            })
+            
+        }
+
+        function showNotifikasiSederhana(){
+            const title = "notifikasi sederhana"
+            const options = {
+                requireInteraction:true,
+                icon:"/android-icon-36x36.png",
+                badge:"/android-icon-36x36.png",
+                image:"/android-icon-36x36.png",
+                actions:[{
+                    action:'yes-action',
+                    title:'Ya',
+                    icon:"/android-icon-36x36.png",
+                    
+                },{
+                    action:'no-action',
+                    title:'Tidak'
+                }],
+                tag: 'message-group-2',
+                renotify: true, // or silent:true,
+                body: 'ini adalah konten notifikasi\nbisa mnggunakan baris baru',
+                
+            }
+            if (Notification.permission === 'granted') {
+                navigator.serviceWorker.ready.then(function(registration){
+                    registration.showNotification(title,options)
+                    
+                })
+            } else {
+                console.log("Fitur notifikasi tidak diijinkan")
+            }
+        }
+
+        if (('PushManager' in window)) {
+            navigator.serviceWorker.getRegistration().then(function(reg){
+            reg.showNotification("Notifikasi Push")
+        })
+        
+            
+        }
+
+    </script>
+</body>
+</html>
