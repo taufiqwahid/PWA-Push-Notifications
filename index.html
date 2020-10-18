@@ -61,13 +61,13 @@
             const title = "notifikasi sederhana"
             const options = {
                 requireInteraction:true,
-                icon:"/android-icon-36x36.png",
-                badge:"/android-icon-36x36.png",
-                image:"/android-icon-36x36.png",
+                icon:"/icon-36x36.png",
+                badge:"/icon-36x36.png",
+                image:"/icon-36x36.png",
                 actions:[{
                     action:'yes-action',
                     title:'Ya',
-                    icon:"/android-icon-36x36.png",
+                    icon:"/icon-36x36.png",
                     
                 },{
                     action:'no-action',
@@ -89,8 +89,21 @@
         }
 
         if (('PushManager' in window)) {
-            navigator.serviceWorker.getRegistration().then(function(reg){
-            reg.showNotification("Notifikasi Push")
+            navigator.serviceWorker.getRegistration().then(function(registration){
+            registration.pushManager.subscribe({
+                userVisibleOnly:true,
+                applicationServerKey:APA91bEINXo2fsZwJvv84VlutnbyRZwQXqrpheeSvuToMJmEwulbw7rnwzWRVO4APmm6J-P0HSizxsCwf1_hPqZhkvzXhTv56xLxRoZjM0L4Y20urs_IVWN1O21fUSVqTSNyhcW1Khy8,
+            }).then(function(subscribe){
+                console.log("Berhasil melakukan subscribe dengan endpoint",subscribe.endpoint)
+                console.log("Berhasil melakukan subscribe dengan p256dh",btoa(String.fromCharCode.apply(
+                    null, new Uint8Array(subscribe.getKey('p256dh'))
+                    )))
+                console.log("Berhasil melakukan subscribe dengan auth key : ",btoa(String.fromCharCode.apply(
+                    null,new Uint8Array(subscribe.getKey('auth'))
+                )))
+            }).catch(function(e){
+                console.log("Tidak dapat melakukan subscribe",e.message)
+            })
         })
         
             

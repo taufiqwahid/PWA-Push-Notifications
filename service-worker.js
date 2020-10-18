@@ -31,7 +31,7 @@ self.addEventListener("push", function (event) {
 
   const options = {
     body: body,
-    icon: "/android-icon-36x36.png",
+    icon: "/icon-36x36.png",
     vibrate: [100, 50, 100],
     data: {
       dateOfArrival: Date.now(),
