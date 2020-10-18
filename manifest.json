@@ -1,4 +1,6 @@
 {
     "name":"Push Notification FCM",
-    "fcm_sender_id": "606998233508"
+    "fcm_sender_id": "606998233508",
+    "publicKey":"BEnP6S0r5PABQ2Tg6uCka0yVKgBBjzbXYAFxsTkxPkh9czCEfBRmO-vZLWqzVNPpAEUrtE5jQs7GViUDUEyvCGk",
+    "privateKey":"ya0Drb7sAvTy9pIYOAAJrabb5egyoqptLmwkLhPHgYA"
 }

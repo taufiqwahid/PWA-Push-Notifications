@@ -12,7 +12,21 @@
     <button onclick="showNotifikasiSederhana()">Notifikasi Sederhana dengan Title dan Body</button>
 
     <script>
-        // aPeriksa service worker
+        //
+        function urlBase64ToUint8Array(base64String){
+            const padding = '='.repeat((4- base64String.length % 4) %4);
+            const base64 = (base64String + padding)
+                .replace(/-/g, '+')
+                .replace(/_/g, '/');
+            const rawData = window.atob(base64);
+            const outputArray = new Uint8Array(rawData.length);
+            for (let i = 0; i < rawData.length; ++i) {
+                outputArray[i] = rawData.charCodeAt(i);
+            }
+            return outputArray;
+        }
+
+        // Periksa service worker
         if (!('serviceWorker' in navigator)) {
             console.log("Service Worker tidak didukung browser in")
         } else {
@@ -92,7 +106,7 @@
             navigator.serviceWorker.getRegistration().then(function(registration){
             registration.pushManager.subscribe({
                 userVisibleOnly:true,
-                applicationServerKey:APA91bEINXo2fsZwJvv84VlutnbyRZwQXqrpheeSvuToMJmEwulbw7rnwzWRVO4APmm6J-P0HSizxsCwf1_hPqZhkvzXhTv56xLxRoZjM0L4Y20urs_IVWN1O21fUSVqTSNyhcW1Khy8,
+                applicationServerKey:urlBase64ToUint8Array("BEnP6S0r5PABQ2Tg6uCka0yVKgBBjzbXYAFxsTkxPkh9czCEfBRmO-vZLWqzVNPpAEUrtE5jQs7GViUDUEyvCGk"),
             }).then(function(subscribe){
                 console.log("Berhasil melakukan subscribe dengan endpoint",subscribe.endpoint)
                 console.log("Berhasil melakukan subscribe dengan p256dh",btoa(String.fromCharCode.apply(
