@@ -106,7 +106,7 @@
             navigator.serviceWorker.getRegistration().then(function(registration){
             registration.pushManager.subscribe({
                 userVisibleOnly:true,
-                applicationServerKey:urlBase64ToUint8Array("BEnP6S0r5PABQ2Tg6uCka0yVKgBBjzbXYAFxsTkxPkh9czCEfBRmO-vZLWqzVNPpAEUrtE5jQs7GViUDUEyvCGk"),
+                applicationServerKey:urlBase64ToUint8Array("BBrw7FBcxYY4aBvq2nk1HE9H4KBwDLjQnpwPUAXjoebnn5rOiiLrmpt37J3K7TtcRMgeA1FKmvRwzR3DEFqAqGI"),
             }).then(function(subscribe){
                 console.log("Berhasil melakukan subscribe dengan endpoint",subscribe.endpoint)
                 console.log("Berhasil melakukan subscribe dengan p256dh",btoa(String.fromCharCode.apply(
@@ -119,8 +119,6 @@
                 console.log("Tidak dapat melakukan subscribe",e.message)
             })
         })
-        
-            
         }
 
     </script>

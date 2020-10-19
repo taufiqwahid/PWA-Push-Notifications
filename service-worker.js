@@ -22,14 +22,14 @@ self.addEventListener("notificationclick", function (event) {
 });
 
 self.addEventListener("push", function (event) {
-  const body = "";
+  let body = "";
   if (event.data) {
     body = event.data.text();
   } else {
     body = "Push message no playload";
   }
 
-  const options = {
+  let options = {
     body: body,
     icon: "/icon-36x36.png",
     vibrate: [100, 50, 100],
@@ -39,9 +39,6 @@ self.addEventListener("push", function (event) {
     },
   };
   event.waitUntil(
-    self.ServiceWorkerRegistration.showNotification(
-      "Push Notification",
-      options,
-    ),
+    self.registration.showNotification("Push Notification", options),
   );
 });
